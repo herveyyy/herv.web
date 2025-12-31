@@ -1,10 +1,11 @@
+"use client";
 import React from "react";
 
 const CTA: React.FC = () => {
     return (
         <section
             id="contact"
-            className="py-24 bg-linear-to-br from-emerald-600 to-emerald-800 text-white text-center relative overflow-hidden"
+            className="relative overflow-hidden bg-emerald-600 bg-linear-240 py-16 px-6 text-center text-white md:py-24 lg:py-32"
         >
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative max-w-4xl mx-auto px-6">

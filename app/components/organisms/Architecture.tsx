@@ -8,7 +8,7 @@ const systemSpecs = {
         title: "Next.js Architecture",
         icon: "⚛️",
         desc: "I leverage my experience with the Next.js App Router to provide the fastest possible user experience. It's not just a page; it's a seamless interaction system.",
-        tech: "Next.js 15 / Tailwind",
+        tech: "Next.js 15,16 / Tailwind",
         role: "Fluid Experience",
     },
     api: {
