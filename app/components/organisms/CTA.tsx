@@ -5,7 +5,7 @@ const CTA: React.FC = () => {
     return (
         <section
             id="contact"
-            className="py-24 bg-linear-to-br from-emerald-600 to-emerald-800 text-white text-center relative overflow-hidden"
+            className="py-24 bg-gradient-to-br from-emerald-600 to-emerald-800 text-white text-center relative overflow-hidden"
         >
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="relative max-w-4xl mx-auto px-6">
