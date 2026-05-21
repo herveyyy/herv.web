@@ -54,13 +54,22 @@ const Nav: React.FC = () => {
     isMobile: boolean = false
   ) => {
     e.preventDefault();
-    if (isMobile) {
-      setIsOpen(false);
-    }
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+
+    if (isMobile) {
+      setIsOpen(false);
+      // Wait for the collapse animation (approx 300ms) to complete before scrolling
+      // to ensure layout is stable and the browser scrolls to the correct offset.
+      setTimeout(() => {
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 300);
+    } else {
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
