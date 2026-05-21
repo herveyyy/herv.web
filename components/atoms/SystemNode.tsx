@@ -1,10 +1,13 @@
+"use client";
 import React from "react";
+import { motion } from "framer-motion";
 
 interface SystemNodeProps {
     step: string;
     title: string;
-    icon: string;
+    icon: React.ReactNode;
     onClick: () => void;
+    isActive?: boolean;
 }
 
 const SystemNode: React.FC<SystemNodeProps> = ({
@@ -12,25 +15,39 @@ const SystemNode: React.FC<SystemNodeProps> = ({
     title,
     icon,
     onClick,
+    isActive,
 }) => {
     return (
-        <div
+        <motion.div
+            whileHover={{ x: 10 }}
+            whileTap={{ scale: 0.98 }}
             onClick={onClick}
-            className="system-node p-6 bg-stone-800 rounded-xl border border-stone-700 cursor-pointer hover:border-emerald-500 group"
+            className={`p-6 rounded-2xl border transition-all cursor-pointer group relative overflow-hidden ${
+                isActive 
+                ? "bg-emerald-600/10 border-emerald-500 shadow-lg shadow-emerald-900/20" 
+                : "bg-stone-800/50 border-stone-700 hover:border-emerald-500/50"
+            }`}
         >
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center relative z-10">
                 <div>
-                    <h4 className="font-bold text-emerald-400 uppercase tracking-widest text-xs mb-1">
+                    <h4 className={`font-bold uppercase tracking-widest text-[10px] mb-1 ${isActive ? "text-emerald-400" : "text-stone-500"}`}>
                         {step}
                     </h4>
-                    <h3 className="text-xl font-bold">{title}</h3>
+                    <h3 className={`text-xl font-bold tracking-tight ${isActive ? "text-white" : "text-stone-300 group-hover:text-white"}`}>{title}</h3>
                 </div>
-                <span className="text-2xl opacity-30 group-hover:opacity-100 transition-opacity">
+                <span className={`text-3xl transition-all duration-300 ${isActive ? "scale-110 opacity-100" : "opacity-20 group-hover:opacity-60"}`}>
                     {icon}
                 </span>
             </div>
-        </div>
+            {isActive && (
+                <motion.div 
+                    layoutId="active-glow"
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-600/5 to-transparent pointer-events-none" 
+                />
+            )}
+        </motion.div>
     );
 };
 
 export default SystemNode;
+
