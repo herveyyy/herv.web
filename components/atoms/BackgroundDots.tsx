@@ -49,8 +49,8 @@ export const BackgroundDots: React.FC<BackgroundDotsProps> = ({
     const handleMouseMove = (e: MouseEvent) => {
       if (!interactive) return;
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current.targetX = (e.clientX - rect.left) * (canvas.width / rect.width);
-      mouseRef.current.targetY = (e.clientY - rect.top) * (canvas.height / rect.height);
+      mouseRef.current.targetX = e.clientX - rect.left;
+      mouseRef.current.targetY = e.clientY - rect.top;
     };
 
     const handleMouseLeave = () => {
