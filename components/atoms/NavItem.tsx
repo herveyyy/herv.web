@@ -5,7 +5,7 @@ export type NavItemProps = {
     children?: React.ReactNode;
     className?: string;
     label?: string;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 };
 
 const NavItem: React.FC<NavItemProps> = ({

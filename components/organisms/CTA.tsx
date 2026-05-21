@@ -36,7 +36,7 @@ const CTA: React.FC = () => {
         </h2>
 
         <p className="text-xl text-stone-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-          I'm currently accepting new projects for 2024. Whether you need a
+          I'm currently accepting new projects for 2026. Whether you need a
           simple automation or a complex enterprise system, let's talk.
         </p>
 

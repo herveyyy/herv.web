@@ -48,6 +48,22 @@ const Nav: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    isMobile: boolean = false
+  ) => {
+    e.preventDefault();
+    if (isMobile) {
+      setIsOpen(false);
+    }
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <motion.div
@@ -55,13 +71,20 @@ const Nav: React.FC = () => {
         style={{ scaleX }}
       />
       <nav
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? "glass-panel py-2" : "bg-transparent py-4"}`}
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          scrolled || isOpen ? "glass-panel py-2" : "bg-transparent py-4"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between font-plus">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-2 group cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              setIsOpen(false);
+            }}
           >
             <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-200 group-hover:rotate-12 transition-transform">
               H
@@ -82,6 +105,7 @@ const Nav: React.FC = () => {
                 <NavItem
                   href={item.href}
                   className={`${item.className} relative group`}
+                  onClick={(e) => handleNavClick(e, item.href, false)}
                 >
                   {navLabels[index]}
                   {index < 3 && (
@@ -95,7 +119,7 @@ const Nav: React.FC = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-stone-900 focus:outline-none hover:bg-stone-100 rounded-lg transition-colors"
+              className="p-2 text-stone-900 focus:outline-none hover:bg-stone-100/50 rounded-lg transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -108,7 +132,7 @@ const Nav: React.FC = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-t border-stone-200 overflow-hidden shadow-2xl"
+              className="md:hidden bg-white/95 backdrop-blur-xl border-t border-stone-200/80 overflow-hidden shadow-2xl"
             >
               <div className="px-6 py-8 space-y-6 flex flex-col">
                 {navItems.map((item, index) => (
@@ -121,7 +145,7 @@ const Nav: React.FC = () => {
                     <NavItem
                       href={item.href}
                       className={`${item.className} text-lg py-2 flex items-center justify-between group`}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => handleNavClick(e, item.href, true)}
                     >
                       {navLabels[index]}
                       <ArrowRight
